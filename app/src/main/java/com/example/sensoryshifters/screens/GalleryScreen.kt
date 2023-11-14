@@ -10,12 +10,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun GalleryScreen(viewModel: GalleryViewModel) {
     // Implement your UI for the GalleryScreen here
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        contentAlignment = Alignment.Center
     ) {
         Text(text = "Gallery Screen")
         // Display gallery items or implement gallery functionality

@@ -1,15 +1,25 @@
 package com.example.sensoryshifters.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.maps.MapView
 
 @Composable
 fun RecordScreen(viewModel: RecordViewModel) {
-    // Implement your UI for the RecordScreen here
+    val context = LocalContext.current
+
+    val fusedLocationProvider : FusedLocationProviderClient = FusedLocationProviderClient(
+        context)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -17,7 +27,34 @@ fun RecordScreen(viewModel: RecordViewModel) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Record Screen")
-        // Add elements for recording functionality or display recorded data
+
+        MapScreen(viewModel, Modifier.height(Dp(400f)).fillMaxWidth())
+        // Display current recording status
+        Text(
+            text = if (viewModel.isRecording) "Recording..." else "Not Recording",
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        // Button to start/stop recording
+        Button(
+            onClick = {
+                if (!viewModel.isRecording) {
+                    viewModel.startRecording(fusedLocationProvider)
+                } else {
+                    viewModel.stopRecording()
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            Text(text = if (viewModel.isRecording) "Stop Recording" else "Start Recording")
+        }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.stopRecording() // Cancel the location updates job on screen disposal
+        }
     }
 }

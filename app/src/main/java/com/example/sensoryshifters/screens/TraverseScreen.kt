@@ -14,8 +14,6 @@ fun TraverseScreen(viewModel: TraverseViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = "Traverse Screen")
         // Implement UI for traversing or navigation-related functionality

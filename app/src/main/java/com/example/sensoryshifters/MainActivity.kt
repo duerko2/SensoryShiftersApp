@@ -38,9 +38,9 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun MainNavHost(navController : NavHostController = rememberNavController()) {
-    var recordViewModel by remember { mutableStateOf(RecordViewModel()) }
-    var galleryViewModel by remember { mutableStateOf(GalleryViewModel())}
-    var traverseViewModel by remember { mutableStateOf(TraverseViewModel())}
+    val recordViewModel = RecordViewModel();
+    val galleryViewModel = GalleryViewModel();
+    val traverseViewModel = TraverseViewModel();
 
     NavHost(navController = navController, startDestination = Destination.Home.route) {
         composable(Destination.Home.route) {
