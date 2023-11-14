@@ -5,33 +5,41 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import com.example.sensoryshifters.theme.*
-
 private val DarkColorScheme = darkColors(
     primary = Blue100,
-    primaryVariant = Purple700,
-    secondary = Teal200,
-    background = Purple700,
+    primaryVariant = Orange700,
+    secondary = Yellow200,
+    background = Orange700,
+    surface = Orange200,
+    error = Color.Red,
+    onPrimary = Color.White,
+    onSecondary = Color.Black,
+    onBackground = Color.White,
+    onSurface = Color.Black,
+    onError = Color.White
 )
 
 private val LightColorScheme = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200,
-    background = Blue100,
+    primary = Orange500,
+    primaryVariant = Orange700,
+    secondary = Yellow200,
+    background = Color.White,
+    surface = Blue100,
+    error = Color.Red,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
     onBackground = Black100,
-
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    onSurface = Color.Black,
+    onError = Color.White
 )
+
+
+
+
+
+
 
 @Composable
 fun SensoryShiftersTheme(

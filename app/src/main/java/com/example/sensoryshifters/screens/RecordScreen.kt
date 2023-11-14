@@ -18,6 +18,7 @@ fun RecordScreen(viewModel: RecordViewModel, onNavigateToSave: () -> Unit) {
 
     val fusedLocationProvider : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -26,7 +27,11 @@ fun RecordScreen(viewModel: RecordViewModel, onNavigateToSave: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        MapScreen(viewModel, Modifier.height(Dp(400f)).fillMaxWidth())
+
+        MapScreen(viewModel,
+            Modifier
+                .height(Dp(400f))
+                .fillMaxWidth())
         // Display current recording status
         Text(
             text = if (viewModel.isRecording) "Recording..." else "Not Recording",
