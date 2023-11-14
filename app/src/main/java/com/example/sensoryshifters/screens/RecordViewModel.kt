@@ -45,23 +45,23 @@ class RecordViewModel() : ViewModel() {
 
 
 
-    fun startRecording(fusedLocationProvider: FusedLocationProviderClient) {
+    fun startRecording(fusedLocationProvider: FusedLocationProviderClient, context: Context) {
         recordingLocations.clear() // Clear previous recorded locations when starting a new recording
         isRecording = true
 
         Log.d("Location", "Checking Location permissions")
 
         locationUpdateJob = viewModelScope.launch {
-            getLocation(fusedLocationProvider)
+            getLocation(fusedLocationProvider,context)
         }
     }
 
-    suspend fun getLocation(fusedLocationProvider: FusedLocationProviderClient) = withContext(Dispatchers.IO){
+    suspend fun getLocation(fusedLocationProvider: FusedLocationProviderClient,context: Context) = withContext(Dispatchers.IO){
         if (ActivityCompat.checkSelfPermission(
-                fusedLocationProvider.applicationContext,
+                context,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                fusedLocationProvider.applicationContext,
+                context,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {

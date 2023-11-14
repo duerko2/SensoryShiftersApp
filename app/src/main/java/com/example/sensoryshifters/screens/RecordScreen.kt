@@ -11,14 +11,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.MapView
 
 @Composable
 fun RecordScreen(viewModel: RecordViewModel) {
     val context = LocalContext.current
 
-    val fusedLocationProvider : FusedLocationProviderClient = FusedLocationProviderClient(
-        context)
+    val fusedLocationProvider : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
     Column(
         modifier = Modifier
@@ -39,7 +39,7 @@ fun RecordScreen(viewModel: RecordViewModel) {
         Button(
             onClick = {
                 if (!viewModel.isRecording) {
-                    viewModel.startRecording(fusedLocationProvider)
+                    viewModel.startRecording(fusedLocationProvider,context)
                 } else {
                     viewModel.stopRecording()
                 }
