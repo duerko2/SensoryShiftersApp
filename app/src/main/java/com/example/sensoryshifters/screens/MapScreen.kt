@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import android.graphics.Canvas
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -27,6 +28,7 @@ import androidx.core.content.ContextCompat
 import com.example.sensoryshifters.R
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -40,6 +42,8 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.maps.android.ktx.model.cameraPosition
+import kotlinx.coroutines.flow.debounce
 
 fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
     val drawable = ContextCompat.getDrawable(context, drawableId)
@@ -63,17 +67,15 @@ fun MapScreen(viewModel: RecordViewModel, modifier: Modifier) {
         mutableStateOf(MapProperties(mapType = MapType.SATELLITE))
     }
 
-    val mockPosition =  LatLng(1.3588227, 103.8742114)
-
-
-    val pos = viewModel.currentLocation
-    val latlngpos = LatLng(pos.latitude,pos.longitude)
-
-
-    Log.d("Location", "lat: ${latlngpos.latitude}, long: ${latlngpos.longitude}")
+    val latLng = LatLng(viewModel.currentLocation.latitude,viewModel.currentLocation.longitude)
+    val cameraPos = CameraPosition.fromLatLngZoom(latLng,17f)
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(latlngpos, 17f)
+        position = cameraPos
     }
+
+
+
+
 
     Box(modifier=modifier) {
         GoogleMap(
@@ -83,7 +85,7 @@ fun MapScreen(viewModel: RecordViewModel, modifier: Modifier) {
             uiSettings = uiSettings
         ){
             Marker(
-                state = MarkerState(position = latlngpos),
+                state = MarkerState(position = LatLng(viewModel.currentLocation.latitude,viewModel.currentLocation.longitude)),
                 title = "This is you",
                 snippet = "You",
                 icon = BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(LocalContext.current,R.drawable.arrow))

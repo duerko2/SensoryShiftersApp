@@ -14,6 +14,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -37,15 +39,17 @@ class RecordViewModel() : ViewModel() {
     })
     private set
 
-
-    private val recordingLocations = mutableListOf<Location>()
+    val recordingLocations = mutableListOf<Location>()
 
     private var locationUpdateJob: Job? = null
 
 
 
 
-    fun startRecording(fusedLocationProvider: FusedLocationProviderClient, context: Context) {
+
+
+
+    fun startRecording(fusedLocationProvider: FusedLocationProviderClient, context : Context) {
         recordingLocations.clear() // Clear previous recorded locations when starting a new recording
         isRecording = true
 
@@ -75,25 +79,27 @@ class RecordViewModel() : ViewModel() {
             return@withContext
         }
 
+
+
+
+
         while(isRecording){
-            fusedLocationProvider
-                .getCurrentLocation(
-                    priority,
-                    cancellationTokenSource.token
-                )
+            fusedLocationProvider.getCurrentLocation(priority,cancellationTokenSource.token)
                 .addOnSuccessListener { location ->
                     Log.d("Location", "location is found: $location")
                     addLocation(location)
                     currentLocation=location
                 }
+            Log.d("Location", "Waiting 5 seconds")
             delay(1000)
+            Log.d("Location","Finished Waiting")
         }
+
     }
 
     fun stopRecording() {
         isRecording = false
         locationUpdateJob?.cancel() // Stop location updates when recording ends
-        saveRecording(recordingLocations.toList()) // Save the entire recording with all locations
     }
 
     private fun addLocation(location: Location?) {
@@ -102,7 +108,7 @@ class RecordViewModel() : ViewModel() {
         }
     }
 
-    private fun saveRecording(locations: List<Location>) {
+    fun saveRoute() {
         // Save to Firebase DB
     }
 }

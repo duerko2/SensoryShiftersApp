@@ -3,10 +3,7 @@ package com.example.sensoryshifters;
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +13,7 @@ import com.example.sensoryshifters.screens.GalleryViewModel
 import com.example.sensoryshifters.screens.HomeScreen
 import com.example.sensoryshifters.screens.RecordScreen
 import com.example.sensoryshifters.screens.RecordViewModel
+import com.example.sensoryshifters.screens.SaveScreen
 import com.example.sensoryshifters.screens.TraverseScreen
 import com.example.sensoryshifters.screens.TraverseViewModel
 
@@ -50,8 +48,8 @@ fun MainNavHost(navController : NavHostController = rememberNavController()) {
         }
         composable(Destination.Record.route) {
             RecordScreen(
-                viewModel = recordViewModel,
-            )
+                viewModel = recordViewModel
+            ) { navController.navigate(Destination.Save.route) }
         }
         composable(Destination.Gallery.route) {
             GalleryScreen(
@@ -62,6 +60,9 @@ fun MainNavHost(navController : NavHostController = rememberNavController()) {
             TraverseScreen(
                 viewModel = traverseViewModel,
             )
+        }
+        composable(Destination.Save.route){
+            SaveScreen(viewModel = recordViewModel)
         }
     }
 }

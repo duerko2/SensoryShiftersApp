@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -12,10 +11,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.MapView
 
 @Composable
-fun RecordScreen(viewModel: RecordViewModel) {
+fun RecordScreen(viewModel: RecordViewModel, onNavigateToSave: () -> Unit) {
     val context = LocalContext.current
 
     val fusedLocationProvider : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
@@ -42,6 +40,7 @@ fun RecordScreen(viewModel: RecordViewModel) {
                     viewModel.startRecording(fusedLocationProvider,context)
                 } else {
                     viewModel.stopRecording()
+                    onNavigateToSave()
                 }
             },
             modifier = Modifier
@@ -49,12 +48,6 @@ fun RecordScreen(viewModel: RecordViewModel) {
                 .padding(vertical = 8.dp)
         ) {
             Text(text = if (viewModel.isRecording) "Stop Recording" else "Start Recording")
-        }
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            viewModel.stopRecording() // Cancel the location updates job on screen disposal
         }
     }
 }
