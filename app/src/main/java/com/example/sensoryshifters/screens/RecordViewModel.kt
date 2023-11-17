@@ -108,7 +108,8 @@ class RecordViewModel() : ViewModel() {
         }
     }
 
-    fun saveRoute() {
+    fun saveRoute(nav : ()->Unit ) {
         // Save to Firebase DB
+        nav()
     }
 }

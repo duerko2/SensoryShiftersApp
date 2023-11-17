@@ -3,7 +3,16 @@ package com.example.sensoryshifters;
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,7 +33,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SensoryShiftersTheme {
-                Background()
                 MainNavHost()
             }
         }
@@ -38,33 +46,56 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun MainNavHost(navController : NavHostController = rememberNavController()) {
-    val recordViewModel = RecordViewModel();
-    val galleryViewModel = GalleryViewModel();
-    val traverseViewModel = TraverseViewModel();
 
-    NavHost(navController = navController, startDestination = Destination.Home.route) {
-        composable(Destination.Home.route) {
-            HomeScreen(
-                navController = navController
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Sensory Shift") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate(Destination.Home.route) }) {
+                        Icon(Icons.Default.Home, contentDescription = "Home")
+                    }
+                }
             )
         }
-        composable(Destination.Record.route) {
-            RecordScreen(
-                viewModel = recordViewModel
-            ) { navController.navigate(Destination.Save.route) }
-        }
-        composable(Destination.Gallery.route) {
-            GalleryScreen(
-                viewModel = galleryViewModel,
-            )
-        }
-        composable(Destination.Traverse.route) {
-            TraverseScreen(
-                viewModel = traverseViewModel,
-            )
-        }
-        composable(Destination.Save.route){
-            SaveScreen(viewModel = recordViewModel)
+    ) {
+        Background()
+
+        val recordViewModel = RecordViewModel();
+        val galleryViewModel = GalleryViewModel();
+        val traverseViewModel = TraverseViewModel();
+
+        NavHost(
+            navController = navController,
+            startDestination = Destination.Home.route,
+            modifier = Modifier.padding(it)
+        ) {
+            composable(Destination.Home.route) {
+                HomeScreen(
+                    navController = navController
+                )
+            }
+            composable(Destination.Record.route) {
+                RecordScreen(
+                    viewModel = recordViewModel
+                ) { navController.navigate(Destination.Save.route) }
+            }
+            composable(Destination.Gallery.route) {
+                GalleryScreen(
+                    viewModel = galleryViewModel,
+                )
+            }
+            composable(Destination.Traverse.route) {
+                TraverseScreen(
+                    viewModel = traverseViewModel,
+                )
+            }
+            composable(Destination.Save.route) {
+                SaveScreen(viewModel = recordViewModel){
+                    navController.navigate(Destination.Home.route)
+                }
+            }
         }
     }
 }

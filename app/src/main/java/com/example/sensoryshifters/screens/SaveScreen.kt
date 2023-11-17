@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun SaveScreen(viewModel: RecordViewModel) {
+fun SaveScreen(viewModel: RecordViewModel, navigatetToHome: () -> Unit) {
     var name by remember { mutableStateOf("") }
     var private by remember { mutableStateOf(true) }
 
@@ -86,7 +86,7 @@ fun SaveScreen(viewModel: RecordViewModel) {
 
         // Save button with accessibility content description
         Button(
-            onClick = { viewModel.saveRoute() },
+            onClick = { viewModel.saveRoute(navigatetToHome) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp)
