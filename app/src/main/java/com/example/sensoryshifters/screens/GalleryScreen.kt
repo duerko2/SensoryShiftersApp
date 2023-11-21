@@ -3,7 +3,9 @@ package com.example.sensoryshifters.screens
 import android.location.Location
 import android.os.Parcel
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -68,11 +70,15 @@ fun PathCard(locations: List<Location>, dateRecorded: String, description: Strin
         modifier = Modifier
             .fillMaxWidth()
             .height(250.dp) // Set desired height for the card
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable(
+                true,
+                onClick = {}
+            ),
         shape = RoundedCornerShape(8.dp), // Apply rounded corners to the card
         border = BorderStroke(1.dp, Color.Gray), // Add a border
         elevation = 8.dp, // Add elevation for a shadow effect
-        backgroundColor = MaterialTheme.colors.background
+        backgroundColor = MaterialTheme.colors.background,
     ) {
         Column(
             modifier = Modifier
