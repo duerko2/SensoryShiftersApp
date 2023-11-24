@@ -63,7 +63,7 @@ fun HomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(shape = RoundedCornerShape(8.dp))
-                    .background(color = Color.LightGray)
+
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {

@@ -43,12 +43,15 @@ fun GalleryScreen(viewModel: GalleryViewModel) {
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             paths.forEach { path ->
-                PathCard(path, "10/11/23","Gåtur langs Mosesøen")
+                item{PathCard(path, "10/11/23","Gåtur langs Mosesøen")}
+            }
+            paths.forEach { path ->
+                item{PathCard(path, "10/11/23","Gåtur langs Mosesøen")}
             }
         }
     }
@@ -69,7 +72,7 @@ fun PathCard(locations: List<Location>, dateRecorded: String, description: Strin
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(250.dp) // Set desired height for the card
+            .height(350.dp) // Set desired height for the card
             .padding(8.dp)
             .clickable(
                 true,
@@ -97,6 +100,11 @@ fun PathCard(locations: List<Location>, dateRecorded: String, description: Strin
             Text(
                 text = "Description: $description",
                 modifier = Modifier.semantics { contentDescription = "Description: $description" }
+            )
+            // Distance
+            Text(
+                text = "Distance: 1,3km",
+                modifier = Modifier.semantics { contentDescription = "Distance: 1,3km" }
             )
 
             // GoogleMap with Polyline

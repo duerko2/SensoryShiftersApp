@@ -38,6 +38,19 @@ fun RecordScreen(viewModel: RecordViewModel, onNavigateToSave: () -> Unit) {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
+        if(viewModel.isRecording){
+            // Button to start/stop recording
+            Button(
+                onClick = {
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text(text = "Add route element")
+            }
+        }
+
         // Button to start/stop recording
         Button(
             onClick = {

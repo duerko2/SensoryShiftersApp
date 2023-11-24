@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun Background(){
+
     Box(modifier = Modifier
                     .fillMaxSize()
                     .background(color = MaterialTheme.colors.background)// Circles towards the top
@@ -51,6 +52,7 @@ fun Background(){
         )
 
         // Boxes towards the bottom
+        /*
         Box(
             modifier = Modifier
                 .offset((-60).dp, 120.dp)
@@ -80,5 +82,7 @@ fun Background(){
                 .clip(RoundedCornerShape(16.dp))
                 .align(Alignment.BottomEnd)
         )
+
+         */
     }
 }

@@ -1,6 +1,7 @@
 package com.example.sensoryshifters.screens
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +36,9 @@ fun SaveScreen(viewModel: RecordViewModel, navigatetToHome: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Name input field with accessibility content description
         TextField(
@@ -98,6 +102,7 @@ fun SaveScreen(viewModel: RecordViewModel, navigatetToHome: () -> Unit) {
         }
 
         // Accessibility improvements for recorded locations
+        /*
         viewModel.recordingLocations.forEach { location ->
             Text(
                 text = "Latitude: ${location.latitude}, Longitude: ${location.longitude}",
@@ -108,5 +113,7 @@ fun SaveScreen(viewModel: RecordViewModel, navigatetToHome: () -> Unit) {
                     }
             )
         }
+
+         */
     }
 }
