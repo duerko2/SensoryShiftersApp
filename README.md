@@ -1,4 +1,5 @@
 --PROTOTYPE--
+
 Repository for Sonsory Shift platform for the deafblind. 
 
 The repository contains the Arduino files used for programming the haptic device in the /hardware folder.
